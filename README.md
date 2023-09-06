@@ -1,8 +1,8 @@
-# labsapp
+# labs-frontend
 
 ## Tabla de contenidos
 
-- [labsapp](#labsapp)
+- [labs-frontend](#labs-frontend)
   - [Tabla de contenidos](#tabla-de-contenidos)
   - [Descripción](#descripción)
   - [Stack Tecnológico](#stack-tecnológico)
@@ -14,7 +14,7 @@
 
 ## Descripción
 
-`labsapp` es una aplicación de frontend para el proyecto Labs, cuyo objetivo es mejorar la gestión de los laboratorios de computación.
+`labs-frontend` es una aplicación de frontend para el proyecto Labs, cuyo objetivo es mejorar la gestión de los laboratorios de computación.
 
 ## Stack Tecnológico
 
@@ -37,7 +37,7 @@ Para levantar el servicio localmente es necesario cumplir los siguientes requisi
 
 Y seguir los siguientes pasos:
 
-1. Clonar el repositorio `labsapp` y entrar en la carpeta del proyecto.
+1. Clonar el repositorio `labs-frontend` y entrar en la carpeta del proyecto.
 2. Instalar los paquetes necesarios con el comando `yarn install`.
 3. Tener las variables de entorno necesarias en un archivo .env en la ruta principal del proyecto. Este archivo se puede conseguir con @Francisco Perez.
 4. Correr la aplicación en modo desarrollo con el comando `yarn dev`.
