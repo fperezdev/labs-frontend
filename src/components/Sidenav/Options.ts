@@ -13,7 +13,7 @@ const options = [
       {
         key: 'dashboard',
         name: 'Dashboard',
-        path: '/',
+        path: '',
         icon: SpaceDashboardIcon,
       },
     ],
@@ -25,7 +25,7 @@ const options = [
       {
         key: 'activity',
         name: 'Actividad',
-        path: '/',
+        path: '',
         icon: BarChartIcon,
       },
       {
