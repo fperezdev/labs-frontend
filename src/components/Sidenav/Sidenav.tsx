@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
@@ -67,12 +67,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Sidenav() {
   const [open, setOpen] = useState(false)
 
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
+
   const handleDrawerToggle = () => {
     setOpen(!open)
   }
 
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer variant="permanent" open={open} onMouseLeave={handleDrawerClose}>
       <DrawerHeader>
         <Typography fontWeight={600} sx={{ marginLeft: 2, display: open ? 'block' : 'none' }}>
           LABSADMIN
@@ -83,7 +87,7 @@ export default function Sidenav() {
       </DrawerHeader>
       <List>
         {options.map((option) => (
-          <>
+          <Fragment key={option.title}>
             {option.title && (
               <Grid item sx={{ height: 15, mt: 3, mb: 1, mx: 2.5 }}>
                 {open ? (
@@ -117,7 +121,7 @@ export default function Sidenav() {
                 </Link>
               </ListItem>
             ))}
-          </>
+          </Fragment>
         ))}
       </List>
     </Drawer>
