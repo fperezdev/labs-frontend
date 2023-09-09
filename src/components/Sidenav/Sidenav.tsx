@@ -1,8 +1,8 @@
-import * as React from 'react'
+import { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -10,9 +10,9 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
-import { Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
+import CommitIcon from '@mui/icons-material/Commit'
+import options from './Options'
 
 const drawerWidth = 240
 
@@ -49,6 +49,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
+    position: 'absolute',
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
@@ -64,14 +65,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 )
 
 export default function Sidenav() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
+
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
 
   const handleDrawerToggle = () => {
     setOpen(!open)
   }
 
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer variant="permanent" open={open} onMouseLeave={handleDrawerClose}>
       <DrawerHeader>
         <Typography fontWeight={600} sx={{ marginLeft: 2, display: open ? 'block' : 'none' }}>
           LABSADMIN
@@ -80,54 +85,43 @@ export default function Sidenav() {
           {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
       </DrawerHeader>
-      <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
+        {options.map((option) => (
+          <Fragment key={option.title}>
+            {option.title && (
+              <Grid item sx={{ height: 15, mt: 3, mb: 1, mx: 2.5 }}>
+                {open ? (
+                  <Typography textTransform="uppercase">{option.title}</Typography>
+                ) : (
+                  <CommitIcon />
+                )}
+              </Grid>
+            )}
+            {option.items.map((item) => (
+              <ListItem key={item.key} disablePadding sx={{ display: 'block' }}>
+                <Link to={`${option.path}${item.path}`} style={{ textDecoration: 'none' }}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <item.icon />
+                    </ListItemIcon>
+                    <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            ))}
+          </Fragment>
         ))}
       </List>
     </Drawer>

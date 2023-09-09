@@ -1,9 +1,14 @@
+import { Outlet } from 'react-router-dom'
+import { Grid } from '@mui/material'
 import Sidenav from './components/Sidenav/Sidenav'
 
 export default function App() {
   return (
-    <div>
+    <Grid container>
       <Sidenav />
-    </div>
+      <Grid item sx={{ marginLeft: 10 }}>
+        <Outlet />
+      </Grid>
+    </Grid>
   )
 }
