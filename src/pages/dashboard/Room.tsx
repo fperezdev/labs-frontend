@@ -3,7 +3,7 @@ import PeopleIcon from '@mui/icons-material/People'
 import BuildIcon from '@mui/icons-material/Build'
 import ArticleIcon from '@mui/icons-material/Article'
 
-export default function LabCard() {
+export default function Room() {
   return (
     <Card variant="outlined">
       <CardContent>
